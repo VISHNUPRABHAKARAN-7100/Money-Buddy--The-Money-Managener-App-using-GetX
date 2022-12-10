@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:money_buddy/screens/splash_screen/splash_screen.dart';
+import 'package:money_buddy/view/splash_screen/splash_screen.dart';
 import 'db/category/category_db.dart';
 import 'db/transactions/transaction_db.dart';
 import 'models/category/category_model.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
     WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: const Color.fromARGB(255, 45, 77, 153),

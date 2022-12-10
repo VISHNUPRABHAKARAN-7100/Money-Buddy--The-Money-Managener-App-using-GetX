@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:money_buddy/core/constants.dart';
 import '../../db/category/category_db.dart';
 import '../../db/transactions/transaction_db.dart';
 import '../../models/category/category_model.dart';
@@ -19,7 +21,6 @@ class AddTransactions extends StatefulWidget {
 }
 
 class _AddTransactionsState extends State<AddTransactions> {
-  
   TextEditingController _amountTextConteoller = TextEditingController();
   TextEditingController _noteTextConteoller = TextEditingController();
   TextEditingController _dateController = TextEditingController();
@@ -134,10 +135,11 @@ class _AddTransactionsState extends State<AddTransactions> {
 // Icon Button For Add Category
                   IconButton(
                     onPressed: () {
+// Alert Dialouge For Add Category
                       showDialog(
                         context: context,
                         builder: (ctx) {
-// Alert Dialouge For Add Category
+
                           return AlertDialog(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -148,11 +150,13 @@ class _AddTransactionsState extends State<AddTransactions> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   RadioButton(
-                                      title: 'Income',
-                                      type: CategoryType.Income,),
+                                    title: 'Income',
+                                    type: CategoryType.Income,
+                                  ),
                                   RadioButton(
-                                      title: 'Expenses',
-                                      type: CategoryType.Expenses,),
+                                    title: 'Expenses',
+                                    type: CategoryType.Expenses,
+                                  ),
                                 ],
                               ),
                               Form(
@@ -194,15 +198,16 @@ class _AddTransactionsState extends State<AddTransactions> {
                                   },
                                   maxLength: 15,
                                   decoration: const InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(20),
-                                        ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20),
                                       ),
-                                      labelText: 'Add Category',),
+                                    ),
+                                    labelText: 'Add Category',
+                                  ),
                                 ),
                               ),
-// Text FormField For Add Category
+                                          // Text FormField For Add Category
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -239,7 +244,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                                   ElevatedButton(
                                     onPressed: () {
                                       _categoryEditing.clear();
-                                      Navigator.of(context).pop();
+                                      Get.back();
                                     },
                                     child: const Text('Cancel'),
                                   ),
@@ -248,7 +253,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                             ],
                           );
                         },
-                      );
+                      );          
                     },
                     icon: const Icon(Icons.add),
                   ),
@@ -276,7 +281,9 @@ class _AddTransactionsState extends State<AddTransactions> {
                       _showDatePicker();
                     },
                     decoration: const InputDecoration(
-                        border: InputBorder.none, labelText: 'Select Date',),
+                      border: InputBorder.none,
+                      labelText: 'Select Date',
+                    ),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Required';
@@ -293,9 +300,10 @@ class _AddTransactionsState extends State<AddTransactions> {
 // TextFormField For Add Amount
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey[200],
-                  border: Border.all(color: Colors.white),),
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey[200],
+                border: Border.all(color: Colors.white),
+              ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: TextFormField(
@@ -323,14 +331,14 @@ class _AddTransactionsState extends State<AddTransactions> {
 
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.white),
-                  color: Colors.grey[200],),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.white),
+                color: Colors.grey[200],
+              ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: TextFormField(
                   textCapitalization: TextCapitalization.sentences,
-                 
                   controller: _noteTextConteoller,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -373,7 +381,7 @@ class _AddTransactionsState extends State<AddTransactions> {
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2022),
-        lastDate: DateTime.now().add(const Duration(days: 365*2)));
+        lastDate: DateTime.now().add(const Duration(days: 365 * 2)));
     if (_datePicked == null) {
       return;
     } else {
@@ -386,49 +394,15 @@ class _AddTransactionsState extends State<AddTransactions> {
 //  Validation For  Amount FormField And Note FormField
   void checkValidation(BuildContext ctx) {
     final parsedAmount = double.tryParse(_amountTextConteoller.text);
-    
 
     if (_selectedCategoryModel == null) {
-      ScaffoldMessenger.of(ctx).showSnackBar(
-        const SnackBar(
-          margin: EdgeInsets.all(10),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.red,
-          content: Text(
-            'Select Category',
-            textAlign: TextAlign.center,
-          ),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      getSnackbarFunction("Select Category", Colors.red);
     } else if (_amountTextConteoller.text.isEmpty) {
-      ScaffoldMessenger.of(ctx).showSnackBar(
-        const SnackBar(
-          margin: EdgeInsets.all(10),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.red,
-          content: Text(
-            'Amount is Required',
-            textAlign: TextAlign.center,
-          ),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      getSnackbarFunction('Amount is Required', Colors.red);
     } else if (parsedAmount == 0) {
-      ScaffoldMessenger.of(ctx).showSnackBar(
-        const SnackBar(
-          margin: EdgeInsets.all(10),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.red,
-          content: Text(
-            'Enter a valid amount',
-            textAlign: TextAlign.center,
-          ),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      getSnackbarFunction('Enter a valid amount', Colors.red);
     } else {
-    final _model = TransactionModel(
+      final _model = TransactionModel(
         note: _noteTextConteoller.text,
         amount: parsedAmount!,
         date: _datePicked!,
@@ -436,21 +410,12 @@ class _AddTransactionsState extends State<AddTransactions> {
         category: _selectedCategoryModel!,
       );
       TransactionDB.instance.addTransaction(_model);
-
-      ScaffoldMessenger.of(ctx).showSnackBar(
-        const SnackBar(
-          margin: EdgeInsets.all(10),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Color.fromARGB(255, 111, 216, 115),
-          content: Text(
-            'Data Added Successefully',
-            textAlign: TextAlign.center,
-          ),
-          duration: Duration(seconds: 2),
-        ),
+      getSnackbarFunction(
+        'Data Added Successefully',
+        const Color.fromARGB(255, 111, 216, 115),
       );
 
-      Navigator.of(context).pop();
+      Get.back();
       TransactionDB.instance.refresh();
       _amountTextConteoller.clear();
       _noteTextConteoller.clear();

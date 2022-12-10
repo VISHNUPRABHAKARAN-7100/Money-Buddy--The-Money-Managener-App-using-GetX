@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../db/category/category_db.dart';
 import '../../models/category/category_model.dart';
@@ -74,7 +75,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
                                           children: [
                                             TextButton(
                                               onPressed: () {
-                                                Navigator.of(context).pop();
+                                                Get.back();
                                               },
                                               child: const Text('Cancel'),
                                             ),
@@ -83,7 +84,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
                                                 CategoryDB.instance
                                                     .deletecategory(
                                                         categorynew.id);
-                                                Navigator.of(context).pop();
+                                                Get.back();
                                               },
                                               child: const Text('Ok'),
                                             )
@@ -134,7 +135,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
                                           children: [
                                             TextButton(
                                               onPressed: () {
-                                                Navigator.of(context).pop();
+                                                Get.back();
                                               },
                                               child: const Text('Cancel'),
                                             ),
@@ -143,7 +144,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
                                                 CategoryDB.instance
                                                     .deletecategory(
                                                         categorynew.id);
-                                                Navigator.of(context).pop();
+                                                Get.back();
                                               },
                                               child: const Text('Ok'),
                                             )

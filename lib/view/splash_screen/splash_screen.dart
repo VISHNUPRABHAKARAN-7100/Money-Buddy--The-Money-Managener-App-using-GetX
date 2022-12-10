@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money_buddy/screens/home_screen/home_screen.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
+
+import '../home_screen/home_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

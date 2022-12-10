@@ -1,12 +1,12 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:money_buddy/view/home_screen/widgets/recent_transaction_widget.dart';
 import '../../db/category/category_db.dart';
 import '../../db/transactions/transaction_db.dart';
 import '../../models/category/category_model.dart';
 import '../../models/transactions/transaction_model.dart';
 import '../add_transactions/add_transactions.dart';
-import '../all_transactions/all_transactions.dart';
 import '../screen_categories/screen_categories.dart';
 import '../screen_statistics/screen_statistics.dart';
 import 'drawer_widget/drawer_widger.dart';
@@ -147,24 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                ListTile(
-                  title: const Text('Recent Transaction',
-                      style: TextStyle(fontSize: 20)),
-                  trailing: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AllTransactions(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'View All',
-                      style: TextStyle(fontSize: 20, color: Colors.black),
-                    ),
-                  ),
-                ),
+                const RecentTransactionWidget(),
 // Transaction Details
                 Expanded(
                   child: ValueListenableBuilder(

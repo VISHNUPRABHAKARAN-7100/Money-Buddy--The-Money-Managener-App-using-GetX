@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
@@ -12,7 +13,7 @@ class AboutUs extends StatelessWidget {
         title: const Text('About Us'),
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
           icon: const Icon(FontAwesomeIcons.arrowLeftLong),
         ),

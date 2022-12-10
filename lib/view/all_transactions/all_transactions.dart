@@ -1,6 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, prefer_final_fields, depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../db/transactions/transaction_db.dart';
 import '../../models/category/category_model.dart';
@@ -214,7 +215,7 @@ class _AllTransactionsState extends State<AllTransactions> {
                                             children: [
                                               TextButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
+                                                  Get.back();
                                                 },
                                                 child: const Text('Cancel'),
                                               ),
@@ -226,7 +227,7 @@ class _AllTransactionsState extends State<AllTransactions> {
                                                             _value.id!);
                                                     TransactionDB.instance
                                                         .refresh();
-                                                    Navigator.of(context).pop();
+                                                    Get.back();
                                                   });
                                                 },
                                                 child: const Text('Ok'),
@@ -291,7 +292,7 @@ class _AllTransactionsState extends State<AllTransactions> {
                                         SimpleDialogOption(
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.of(context).pop();
+                                              Get.back();
                                             },
                                             child: const Text('Ok'),
                                           ),
