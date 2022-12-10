@@ -1,8 +1,10 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, prefer_final_fields, depend_on_referenced_packages
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:money_buddy/core/constants.dart';
 import '../../db/transactions/transaction_db.dart';
 import '../../models/category/category_model.dart';
 import '../../models/transactions/transaction_model.dart';
@@ -203,40 +205,32 @@ class _AllTransactionsState extends State<AllTransactions> {
                                     const Color.fromARGB(255, 234, 81, 70),
                                 icon: Icons.delete,
                                 onPressed: (context) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return SimpleDialog(
-                                        title: const Text('Are you sure?'),
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              TextButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                child: const Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    TransactionDB.instance
-                                                        .deleteTransaction(
-                                                            _value.id!);
-                                                    TransactionDB.instance
-                                                        .refresh();
-                                                    Get.back();
-                                                  });
-                                                },
-                                                child: const Text('Ok'),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      );
-                                    },
+                                  Get.defaultDialog(
+                                    content: const Text(''),
+                                    title: 'Are you sure?',
+                                    cancel: TextButton(
+                                      onPressed: (() => Get.back()),
+                                      child: const Text(
+                                        'Cancel',
+                                        style: textStyleForViewTransaction,
+                                      ),
+                                    ),
+                                    confirm: TextButton(
+                                      onPressed: () {
+                                        setState(
+                                          () {
+                                            TransactionDB.instance
+                                                .deleteTransaction(_value.id!);
+                                            TransactionDB.instance.refresh();
+                                            Get.back();
+                                          },
+                                        );
+                                      },
+                                      child: const Text(
+                                        'Yes, Delete It',
+                                        style: textStyleForViewTransaction,
+                                      ),
+                                    ),
                                   );
                                 },
                               ),
@@ -255,51 +249,49 @@ class _AllTransactionsState extends State<AllTransactions> {
                               trailing: _value.type == CategoryType.Expenses
                                   ? Text(
                                       '₹${_value.amount}',
-                                      style: const TextStyle(color: Colors.red),
+                                      style: const TextStyle(color: kRedColor),
                                     )
                                   : Text(
                                       '₹${_value.amount}',
                                       style:
-                                          const TextStyle(color: Colors.green),
+                                          const TextStyle(color: kGreenColor),
                                     ),
                               onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return SimpleDialog(
-                                      title: Text(_value.type.name),
-                                      children: [
-                                        SimpleDialogOption(
-                                          child: Text(
-                                            'Date:- ${parsedDate(_value.date)}',
-                                          ),
+                                Get.defaultDialog(
+                                  title: _value.type.name,
+                                  content: Column(
+                                    children: [
+                                      Text(
+                                        'Date:- ${parsedDate(_value.date)}',
+                                        style: textStyleForViewTransaction,
+                                      ),
+                                      Text(
+                                        'Category:-${_value.category.name}',
+                                        style: textStyleForViewTransaction,
+                                      ),
+                                      Text(
+                                        'Amount:- ${_value.amount}',
+                                        style: textStyleForViewTransaction,
+                                      ),
+                                      Text(
+                                        'Note:- ${_value.note}',
+                                        style: textStyleForViewTransaction,
+                                      )
+                                    ],
+                                  ),
+                                  barrierDismissible: false,
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Get.back(),
+                                      child: const Text(
+                                        'Ok',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: kBlackColor,
                                         ),
-                                        SimpleDialogOption(
-                                          child: Text(
-                                            'Category:-${_value.category.name}',
-                                          ),
-                                        ),
-                                        SimpleDialogOption(
-                                          child: Text(
-                                            'Amount:- ${_value.amount}',
-                                          ),
-                                        ),
-                                        SimpleDialogOption(
-                                          child: Text(
-                                            'Note:- ${_value.note}',
-                                          ),
-                                        ),
-                                        SimpleDialogOption(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            child: const Text('Ok'),
-                                          ),
-                                        )
-                                      ],
-                                    );
-                                  },
+                                      ),
+                                    ),
+                                  ],
                                 );
                               },
                             ),

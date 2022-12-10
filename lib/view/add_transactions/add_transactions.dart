@@ -136,124 +136,115 @@ class _AddTransactionsState extends State<AddTransactions> {
                   IconButton(
                     onPressed: () {
 // Alert Dialouge For Add Category
-                      showDialog(
-                        context: context,
-                        builder: (ctx) {
 
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                      Get.defaultDialog(
+                        title: 'Add Transaction',
+                        titleStyle: textStyleForViewTransaction,
+                        content: Column(
+                          children: [
+                            Row(
+                              children: [
+                                RadioButton(
+                                  title: 'Income',
+                                  type: CategoryType.Income,
+                                ),
+                                RadioButton(
+                                  title: 'Expenses',
+                                  type: CategoryType.Expenses,
+                                ),
+                              ],
                             ),
-                            actions: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  RadioButton(
-                                    title: 'Income',
-                                    type: CategoryType.Income,
-                                  ),
-                                  RadioButton(
-                                    title: 'Expenses',
-                                    type: CategoryType.Expenses,
-                                  ),
-                                ],
-                              ),
-                              Form(
-                                key: _formkey,
-                                child: TextFormField(
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  controller: _categoryEditing,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return '';
-                                    } else {
-                                      for (var i = 0;
-                                          i < newIncomeList.length;
-                                          i++) {
-                                        if (value.trim().toLowerCase() ==
-                                            newIncomeList[i]
-                                                .name
-                                                .toLowerCase()
-                                                .toString()) {
-                                          return 'Alredy exist';
-                                        }
-                                      }
-                                      for (var i = 0;
-                                          i < newExpenseList.length;
-                                          i++) {
-                                        if (value.trim().toLowerCase() ==
-                                            newExpenseList[i]
-                                                .name
-                                                .toLowerCase()
-                                                .toString()) {
-                                          return 'Alredy exist';
-                                        }
+                            Form(
+                              key: _formkey,
+                              child: TextFormField(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                controller: _categoryEditing,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return '';
+                                  } else {
+                                    for (var i = 0;
+                                        i < newIncomeList.length;
+                                        i++) {
+                                      if (value.trim().toLowerCase() ==
+                                          newIncomeList[i]
+                                              .name
+                                              .toLowerCase()
+                                              .toString()) {
+                                        return 'Alredy exist';
                                       }
                                     }
-                                    return null;
-                                  },
-                                  maxLength: 15,
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
+                                    for (var i = 0;
+                                        i < newExpenseList.length;
+                                        i++) {
+                                      if (value.trim().toLowerCase() ==
+                                          newExpenseList[i]
+                                              .name
+                                              .toLowerCase()
+                                              .toString()) {
+                                        return 'Alredy exist';
+                                      }
+                                    }
+                                  }
+                                  return null;
+                                },
+                                maxLength: 15,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(20),
                                     ),
-                                    labelText: 'Add Category',
                                   ),
+                                  labelText: 'Add Category',
                                 ),
                               ),
-                                          // Text FormField For Add Category
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      if (_formkey.currentState!.validate()) {
-                                        final _categoryText =
-                                            _categoryEditing.text;
-                                        if (_categoryText.isEmpty) {
-                                          return;
-                                        }
-                                        final _type =
-                                            selectedCategoryNotifier.value;
-                                        final _category = CategoryModel(
-                                          id: DateTime.now()
-                                              .millisecondsSinceEpoch
-                                              .toString(),
-                                          name: _categoryText,
-                                          type: _type,
-                                        );
+                            ),
+                          ],
+                        ),
+                        cancel: TextButton(
+                          onPressed: () {
+                            _categoryEditing.clear();
+                            Get.back();
+                          },
+                          child: const Text(
+                            'Cancel',
+                            style: textStyleForViewTransaction,
+                          ),
+                        ),
+                        confirm: TextButton(
+                          onPressed: () {
+                            if (_formkey.currentState!.validate()) {
+                              final _categoryText = _categoryEditing.text;
+                              if (_categoryText.isEmpty) {
+                                return;
+                              }
+                              final _type = selectedCategoryNotifier.value;
+                              final _category = CategoryModel(
+                                id: DateTime.now()
+                                    .millisecondsSinceEpoch
+                                    .toString(),
+                                name: _categoryText,
+                                type: _type,
+                              );
 
-                                        CategoryDB().addCategories(_category);
-                                        _categoryEditing.clear();
-                                        setState(() {
-                                          CategoryDB.instance.refreshUI();
-                                        });
+                              CategoryDB().addCategories(_category);
+                              _categoryEditing.clear();
+                              setState(() {
+                                CategoryDB.instance.refreshUI();
+                              });
 
-                                        Navigator.of(ctx).pop();
-                                      }
-                                    },
-                                    child: const Text('Add'),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      _categoryEditing.clear();
-                                      Get.back();
-                                    },
-                                    child: const Text('Cancel'),
-                                  ),
-                                ],
-                              )
-                            ],
-                          );
-                        },
-                      );          
+                              Get.back();
+                            }
+                          },
+                          child: const Text(
+                            'Add',
+                            style: textStyleForViewTransaction,
+                          ),
+                        ),
+                      );
                     },
                     icon: const Icon(Icons.add),
                   ),
@@ -410,12 +401,12 @@ class _AddTransactionsState extends State<AddTransactions> {
         category: _selectedCategoryModel!,
       );
       TransactionDB.instance.addTransaction(_model);
+      Get.back();
       getSnackbarFunction(
         'Data Added Successefully',
         const Color.fromARGB(255, 111, 216, 115),
       );
 
-      Get.back();
       TransactionDB.instance.refresh();
       _amountTextConteoller.clear();
       _noteTextConteoller.clear();

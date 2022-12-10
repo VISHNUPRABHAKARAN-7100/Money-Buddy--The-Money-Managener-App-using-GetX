@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:money_buddy/core/constants.dart';
 import '../../db/category/category_db.dart';
 import '../../models/category/category_model.dart';
 
@@ -63,36 +63,29 @@ class _ScreenCategoriesState extends State<ScreenCategories>
                             Text(categorynew.name),
                             IconButton(
                               onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return SimpleDialog(
-                                      title: const Text('Are you sure?'),
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              child: const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                CategoryDB.instance
-                                                    .deletecategory(
-                                                        categorynew.id);
-                                                Get.back();
-                                              },
-                                              child: const Text('Ok'),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    );
-                                  },
+                                Get.defaultDialog(
+                                  barrierDismissible: false,
+                                  content: const Text(''),
+                                  title: 'Are you sure?',
+                                  titleStyle: textStyleForViewTransaction,
+                                  cancel: TextButton(
+                                    onPressed: (() => Get.back()),
+                                    child: const Text(
+                                      'Cancel',
+                                      style: textStyleForViewTransaction,
+                                    ),
+                                  ),
+                                  confirm: TextButton(
+                                    onPressed: () {
+                                      CategoryDB.instance
+                                          .deletecategory(categorynew.id);
+                                      Get.back();
+                                    },
+                                    child: const Text(
+                                      'Yes, Delete It',
+                                      style: textStyleForViewTransaction,
+                                    ),
+                                  ),
                                 );
                               },
                               icon: const Icon(Icons.delete),
@@ -123,36 +116,29 @@ class _ScreenCategoriesState extends State<ScreenCategories>
                             Text(categorynew.name),
                             IconButton(
                               onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return SimpleDialog(
-                                      title: const Text('Are you sure?'),
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              child: const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                CategoryDB.instance
-                                                    .deletecategory(
-                                                        categorynew.id);
-                                                Get.back();
-                                              },
-                                              child: const Text('Ok'),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    );
-                                  },
+                                Get.defaultDialog(
+                                  barrierDismissible: false,
+                                  content: const Text(''),
+                                  title: 'Are you sure?',
+                                  titleStyle: textStyleForViewTransaction,
+                                  cancel: TextButton(
+                                    onPressed: (() => Get.back()),
+                                    child: const Text(
+                                      'Cancel',
+                                      style: textStyleForViewTransaction,
+                                    ),
+                                  ),
+                                  confirm: TextButton(
+                                    onPressed: () {
+                                      CategoryDB.instance
+                                          .deletecategory(categorynew.id);
+                                      Get.back();
+                                    },
+                                    child: const Text(
+                                      'Yes, Delete It',
+                                      style: textStyleForViewTransaction,
+                                    ),
+                                  ),
                                 );
                               },
                               icon: const Icon(Icons.delete),

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-const kColorRed = Colors.red;
-const kColorGreen = Colors.green;
+const kRedColor = Colors.red;
+const kGreenColor = Colors.green;
 const kBlackColor = Colors.black;
+
+const textStyleForViewTransaction = TextStyle(fontSize: 18, color: kBlackColor);
 
 getSnackbarFunction(String title, Color color) {
   Get.snackbar('', "",
       titleText: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           color: Colors.white,
         ),
@@ -17,8 +19,8 @@ getSnackbarFunction(String title, Color color) {
       ),
       backgroundColor: color,
       snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       isDismissible: true,
       dismissDirection: DismissDirection.horizontal,
-      padding: EdgeInsets.all(0));
+      padding: const EdgeInsets.all(0));
 }
