@@ -52,45 +52,45 @@ class DrawerWidget extends StatelessWidget {
                     Column(
                       children: [
                         ListTile(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) {
-                                return const AboutUs();
-                              },
-                            ));
-                          },
-                          title: Text(
+                          onTap: () {},
+                          leading: Text(
+                            'Change Theme',
+                            style: GoogleFonts.sanchez(
+                              fontSize: 20,
+                              color: Colors.blueGrey.shade900,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          trailing: const Icon(FontAwesomeIcons.lightbulb),
+                        ),
+                        ListTile(
+                          onTap: () => Get.to(const AboutUs()),
+                          leading: Text(
                             'About Us',
                             style: GoogleFonts.sanchez(
                                 fontSize: 20,
                                 color: Colors.blueGrey.shade900,
                                 fontWeight: FontWeight.w600),
                           ),
-                          leading: const Icon(FontAwesomeIcons.info),
+                          trailing: const Icon(FontAwesomeIcons.info),
                         ),
                         ListTile(
-                          title: Text(
+                          leading: Text(
                             'Privacy & Policy',
                             style: GoogleFonts.sanchez(
                                 fontSize: 20,
                                 color: Colors.blueGrey.shade900,
                                 fontWeight: FontWeight.w600),
                           ),
-                          leading: const Icon(Icons.privacy_tip),
+                          trailing: const Icon(Icons.privacy_tip),
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const PrivaacyPolicy();
-                                },
-                              ),
-                            );
+                            Get.to(const PrivacyPolicy());
                           },
                         ),
                         ListTile(
-                          leading: const Icon(FontAwesomeIcons.arrowsRotate,
+                          trailing: const Icon(FontAwesomeIcons.arrowsRotate,
                               size: 26),
-                          title: Text(
+                          leading: Text(
                             'Reset All',
                             style: GoogleFonts.sanchez(
                                 fontSize: 20,
@@ -114,13 +114,7 @@ class DrawerWidget extends StatelessWidget {
                                 onPressed: () {
                                   CategoryDB.instance.resetAll();
                                   TransactionDB.instance.resetTransactions();
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return const SplashScreen();
-                                      },
-                                    ),
-                                  );
+                                  Get.offAll(const SplashScreen());
                                 },
                                 child: const Text(
                                   'Yes,Reset',

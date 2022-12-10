@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../all_transactions/all_transactions.dart';
+import 'package:get/get.dart';
+import 'package:money_buddy/view/all_transactions/all_transactions.dart';
 
 class RecentTransactionWidget extends StatelessWidget {
   const RecentTransactionWidget({super.key});
@@ -10,14 +10,7 @@ class RecentTransactionWidget extends StatelessWidget {
     return ListTile(
       title: const Text('Recent Transaction', style: TextStyle(fontSize: 20)),
       trailing: TextButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AllTransactions(),
-            ),
-          );
-        },
+        onPressed: () => Get.to(const AllTransactions()),
         child: const Text(
           'View All',
           style: TextStyle(fontSize: 20, color: Colors.black),

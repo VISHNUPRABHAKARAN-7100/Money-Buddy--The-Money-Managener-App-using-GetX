@@ -1,5 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, depend_on_referenced_packages
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/get_core.dart';
 import 'package:intl/intl.dart';
 import 'package:money_buddy/view/home_screen/widgets/recent_transaction_widget.dart';
 import '../../db/category/category_db.dart';
@@ -23,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int _selectedIndex = 0;
   late String parsedAmount;
-  
 
   @override
   void initState() {
@@ -207,14 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: const Color.fromARGB(255, 45, 77, 153),
                       elevation: 6,
                       child: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AddTransactions(),
-                            ),
-                          );
-                        },
+                        onPressed: () => Get.to(const AddTransactions()),
                         icon: const Icon(
                           Icons.add,
                           color: Colors.white,
@@ -230,8 +224,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         drawerScrimColor: Colors.grey.shade200,
-        // drawerDragStartBehavior: DragStartBehavior.start ,
-
         drawer: const DrawerWidget(),
 
 // Bottom Nvigation Bar

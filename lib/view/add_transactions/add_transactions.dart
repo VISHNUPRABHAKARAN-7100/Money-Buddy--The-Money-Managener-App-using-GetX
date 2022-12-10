@@ -137,7 +137,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                     onPressed: () {
 // Alert Dialouge For Add Category
 
-                      Get.defaultDialog(
+                      Get.defaultDialog(barrierDismissible: false ,
                         title: 'Add Transaction',
                         titleStyle: textStyleForViewTransaction,
                         content: Column(

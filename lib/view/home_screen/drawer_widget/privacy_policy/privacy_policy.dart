@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../home_screen.dart';
 
-class PrivaacyPolicy extends StatelessWidget {
-  const PrivaacyPolicy({super.key});
+class PrivacyPolicy extends StatelessWidget {
+  const PrivacyPolicy({super.key});
 
   static SizedBox sizedBoxHeight5 = const SizedBox(
     height: 5,
@@ -13,20 +14,13 @@ class PrivaacyPolicy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: const Color.fromARGB(255, 45, 77, 153),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 45, 77, 153),
         title: const Text(
           'Privacy and Policy',
         ),
         leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) {
-                  return const HomeScreen();
-                },
-              ),
-            );
-          },
+          onPressed: () => Get.back(),
           icon: const Icon(FontAwesomeIcons.arrowLeft),
         ),
       ),
@@ -177,15 +171,14 @@ class HeadingClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      heading,
-      style: GoogleFonts.poppins(fontWeight: FontWeight.bold,fontSize: 16)
-      
-      // const TextStyle(
-      //   fontWeight: FontWeight.bold,fontFamily: ,
-      //   fontSize: 16,
-      // ),
-    );
+    return Text(heading,
+        style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 16)
+
+        // const TextStyle(
+        //   fontWeight: FontWeight.bold,fontFamily: ,
+        //   fontSize: 16,
+        // ),
+        );
   }
 }
 
@@ -195,11 +188,10 @@ class ParagraphClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      paragraph,
-      style: GoogleFonts.merriweather(fontSize: 15,) 
-      
-    );
+    return Text(paragraph,
+        style: GoogleFonts.merriweather(
+          fontSize: 15,
+        ));
   }
 }
 
@@ -221,7 +213,8 @@ class PointFuction extends StatelessWidget {
               width: 6,
             ),
             Text(
-              word,style: GoogleFonts.mukta(),
+              word,
+              style: GoogleFonts.mukta(),
             )
           ],
         ),
